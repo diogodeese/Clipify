@@ -6,7 +6,7 @@ interface ToastProps {
   children: JSX.Element
 }
 
-export const ToastSuccess = (props: ToastProps) => {
+export const Toast = (props: ToastProps) => {
   const [open, setOpen] = useState(false)
   const timerRef = useRef(0)
 

@@ -1,9 +1,15 @@
+import { blackA } from '@radix-ui/colors'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      colors: {
+        ...blackA,
+      },
       keyframes: {
+        // Toast
         hide: {
           from: { opacity: 1 },
           to: { opacity: 0 },
@@ -20,6 +26,7 @@ export default {
         },
       },
       animation: {
+        // Toast
         hide: 'hide 100ms ease-in',
         slideIn: 'slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         swipeOut: 'swipeOut 100ms ease-out',
