@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  username   String
-  avatar     String
-  banner     String
-  created_at DateTime @default(now())
-  Posts      Post[]
-  Likes      Like[]
+  id              String   @id @default(uuid())
+  unique_username String   @unique
+  username        String
+  avatar          String
+  banner          String
+  created_at      DateTime @default(now())
+  Posts           Post[]
+  Likes           Like[]
 
   @@map("users")
 }
