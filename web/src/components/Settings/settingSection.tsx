@@ -53,7 +53,12 @@ export const SettingSection = (props: SettingSectionProps) => {
   )
 }
 
-export const AvatarSettingSection = () => {
+interface AvatarSettingSectionProps {
+  avatar?: string
+  username: string
+}
+
+export const AvatarSettingSection = (props: AvatarSettingSectionProps) => {
   return (
     <div className="flex h-36 w-[800px] flex-grow flex-col rounded border border-neutral-700">
       <div className="flex flex-grow justify-between px-4">
@@ -65,10 +70,7 @@ export const AvatarSettingSection = () => {
         </div>
         <div className="flex items-center justify-center">
           <AvatarCropper>
-            <LargeAvatar
-              imageUrl="https://staticg.sportskeeda.com/editor/2022/12/9e117-16710278522537-1920.jpg"
-              username="asd"
-            />
+            <LargeAvatar avatar={props.avatar} username={props.username} />
           </AvatarCropper>
         </div>
       </div>
