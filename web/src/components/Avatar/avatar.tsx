@@ -3,7 +3,7 @@ import getUsernameInitials from '@utils/getUsernameInitials'
 
 interface AvatarProps {
   username: string
-  imageUrl?: string
+  avatar?: string
 }
 
 export const SmallAvatar = (props: AvatarProps) => {
@@ -11,8 +11,9 @@ export const SmallAvatar = (props: AvatarProps) => {
     <RadixAvatar.Root className="inline-flex h-8 w-8 select-none items-center justify-center overflow-hidden rounded-full bg-neutral-700 align-middle">
       <RadixAvatar.Image
         className="h-full w-full rounded-[inherit] object-cover"
-        src={props.imageUrl}
-        alt="Username"
+        src={props.avatar}
+        alt={props.username}
+        draggable="false"
       />
       <RadixAvatar.Fallback
         className="leading-1 flex h-full w-full items-center justify-center rounded-full border border-neutral-600 bg-neutral-700 text-sm font-semibold text-violet-500"
@@ -29,8 +30,9 @@ export const MediumAvatar = (props: AvatarProps) => {
     <RadixAvatar.Root className="inline-flex h-10 w-10 select-none items-center justify-center overflow-hidden rounded-full bg-neutral-700 align-middle">
       <RadixAvatar.Image
         className="h-full w-full rounded-[inherit] object-cover"
-        src={props.imageUrl}
-        alt="Username"
+        src={props.avatar}
+        alt={props.username}
+        draggable="false"
       />
       <RadixAvatar.Fallback
         className="leading-1 flex h-full w-full items-center justify-center rounded-full border-2 border-neutral-600 bg-neutral-700 text-base font-semibold text-violet-500"
@@ -47,8 +49,9 @@ export const LargeAvatar = (props: AvatarProps) => {
     <RadixAvatar.Root className="inline-flex h-14 w-14 select-none items-center justify-center overflow-hidden rounded-full bg-neutral-700 align-middle">
       <RadixAvatar.Image
         className="h-full w-full select-none rounded-[inherit] object-cover"
-        src={props.imageUrl}
-        alt="Username"
+        src={props.avatar}
+        alt={props.username}
+        draggable="false"
       />
       <RadixAvatar.Fallback
         className="leading-1 flex h-full w-full items-center justify-center rounded-full border-2 border-neutral-600 bg-neutral-700 text-base font-semibold text-violet-500"
@@ -65,8 +68,9 @@ export const ProfileAvatar = (props: AvatarProps) => {
     <RadixAvatar.Root className="inline-flex h-36 w-36 select-none items-center justify-center overflow-hidden rounded-full bg-neutral-700 align-middle">
       <RadixAvatar.Image
         className="h-full w-full rounded-[inherit] object-cover"
-        src={props.imageUrl}
-        alt="Username"
+        src={props.avatar}
+        alt={props.username}
+        draggable="false"
       />
       <RadixAvatar.Fallback
         className="leading-1 flex h-full w-full items-center justify-center rounded-full border-2 border-neutral-600 bg-neutral-700 text-3xl font-semibold text-violet-500"
