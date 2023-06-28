@@ -9,6 +9,7 @@ interface SettingSectionProps {
   title: string
   description: string
   inputType: 'text' | 'password'
+  defaultValue?: string
   inputPlaceholder: string
   disclaimer: string
 }
@@ -17,11 +18,21 @@ export const SettingSection = (props: SettingSectionProps) => {
   let Input: ReactNode
   switch (props.inputType) {
     case 'text':
-      Input = <TextInput placeholder={props.inputPlaceholder} />
+      Input = (
+        <TextInput
+          defaultValue={props.defaultValue ? props.defaultValue : ''}
+          placeholder={props.inputPlaceholder}
+        />
+      )
       break
 
     case 'password':
-      Input = <PasswordInput placeholder={props.inputPlaceholder} />
+      Input = (
+        <PasswordInput
+          defaultValue={props.defaultValue ? props.defaultValue : ''}
+          placeholder={props.inputPlaceholder}
+        />
+      )
       break
   }
 
