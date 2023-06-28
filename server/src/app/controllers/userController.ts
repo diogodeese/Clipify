@@ -1,30 +1,17 @@
 import { User } from '@prisma/client'
 import { Request, Response } from 'express'
-import { prismaClient } from '../../lib/prismaClient.js'
+import { userService } from '../services/userService.js'
 
 export class UserController {
   async getUser(request: Request, response: Response) {
     const id: string = request.params.id
 
-    let uniqueUsername: string
-    if (id.includes('@')) {
-      uniqueUsername = id.replace('@', '')
-    }
-
     let user: User
 
-    if (uniqueUsername) {
-      user = await prismaClient.user.findUnique({
-        where: {
-          unique_username: uniqueUsername,
-        },
-      })
+    if (id.includes('@')) {
+      user = await userService.getUserByUsername(id.replace('@', ''))
     } else {
-      user = await prismaClient.user.findUnique({
-        where: {
-          id,
-        },
-      })
+      user = await userService.getUserById(id)
     }
 
     response.json(user)
@@ -33,35 +20,26 @@ export class UserController {
   async createUser(request: Request, response: Response) {
     const { uniqueUsername, username, avatar, banner } = request.body
 
-    let existsUniqueUsername: boolean
-    const u = await prismaClient.user.findUnique({
-      where: { unique_username: uniqueUsername },
-    })
+    const uniqueUsernameAlreadyExists = await userService.checkUniqueUsername(
+      uniqueUsername,
+    )
 
-    if (u) {
-      existsUniqueUsername = true
-    } else {
-      existsUniqueUsername = false
-    }
-    if (existsUniqueUsername)
+    if (uniqueUsernameAlreadyExists)
       return response.json({ error: 'Duplicate Unique Username' })
 
-    const user = await prismaClient.user.create({
-      data: {
-        unique_username: uniqueUsername,
-        username,
-        avatar,
-        banner,
-      },
-    })
+    const user = await userService.createUser(
+      uniqueUsername,
+      username,
+      avatar,
+      banner,
+    )
 
     return response.json(user)
   }
 
   async deleteUser(request: Request, response: Response) {
     const id: string = request.params.id
-
-    await prismaClient.user.delete({ where: { id } })
+    userService.deleteUser(id)
 
     return response.json(id)
   }
