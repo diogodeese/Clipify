@@ -1,6 +1,6 @@
 import { User } from '@prisma/client'
 import { Request, Response } from 'express'
-import { userService } from '../services/userService.js'
+import { userService } from 'src/services/userService.js'
 
 export class UserController {
   async getUser(request: Request, response: Response) {
@@ -21,7 +21,7 @@ export class UserController {
     const { uniqueUsername, username, avatar, banner } = request.body
 
     const uniqueUsernameAlreadyExists = await userService.checkUniqueUsername(
-      uniqueUsername,
+      uniqueUsername
     )
 
     if (uniqueUsernameAlreadyExists)
@@ -31,7 +31,7 @@ export class UserController {
       uniqueUsername,
       username,
       avatar,
-      banner,
+      banner
     )
 
     return response.json(user)

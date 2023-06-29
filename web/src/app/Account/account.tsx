@@ -34,6 +34,7 @@ export const Account = () => {
                 title="Your Username"
                 description="This is your profile username."
                 inputType="text"
+                defaultValue={user.username}
                 inputPlaceholder="Username"
                 disclaimer="Please use 32 characters at maximum."
               />

@@ -1,4 +1,4 @@
-import { prismaClient } from '../../config/prismaClient.js'
+import { prismaClient } from '../../lib/prismaClient.js'
 
 const checkUniqueUsername = async (uniqueUsername: string) => {
   const user = await prismaClient.user.findUnique({
@@ -29,7 +29,7 @@ const createUser = async (
   uniqueUsername: string,
   username: string,
   avatar: string,
-  banner: string
+  banner: string,
 ) => {
   return await prismaClient.user.create({
     data: {
