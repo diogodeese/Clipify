@@ -19,6 +19,10 @@ export const Account = () => {
     })
   }, [id])
 
+  const onSave = (updatedUser: User) => {
+    axios.put(`http://localhost:4003/user/${id}`, { updatedUser })
+  }
+
   return (
     <>
       <Navbar />
@@ -26,6 +30,7 @@ export const Account = () => {
         {user && (
           <>
             <div className="flex w-[200px] flex-col gap-1">
+              <TabSelector tabName="Go Back" url={`/u/${user.id}`} />
               <TabSelector tabName="General" url="/account" />
               <TabSelector tabName="Login Connections" url="/test" />
             </div>
@@ -37,6 +42,21 @@ export const Account = () => {
                 defaultValue={user.username}
                 inputPlaceholder="Username"
                 disclaimer="Please use 32 characters at maximum."
+                userAttribute={'username'}
+                user={user}
+                onSave={onSave}
+              />
+
+              <SettingSection
+                title="Your Unique Username"
+                description="This is your unique username."
+                inputType="text"
+                defaultValue={user.unique_username}
+                inputPlaceholder="@Username"
+                disclaimer="Please use 32 characters at maximum."
+                userAttribute={'unique_username'}
+                user={user}
+                onSave={onSave}
               />
 
               <AvatarSettingSection

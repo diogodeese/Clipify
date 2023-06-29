@@ -1,11 +1,10 @@
 import { User } from '@prisma/client'
 import { Request, Response } from 'express'
-import { userService } from 'src/services/userService.js'
+import { userService } from '../services/userService.js'
 
 export class UserController {
   async getUser(request: Request, response: Response) {
     const id: string = request.params.id
-
     let user: User
 
     if (id.includes('@')) {
@@ -35,6 +34,14 @@ export class UserController {
     )
 
     return response.json(user)
+  }
+
+  async updateUser(request: Request, response: Response) {
+    const id: string = request.params.id
+    const { updatedUser } = request.body
+    userService.updateUser(id, updatedUser)
+
+    return response.json(id)
   }
 
   async deleteUser(request: Request, response: Response) {

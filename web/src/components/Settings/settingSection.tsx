@@ -1,9 +1,7 @@
 import { LargeAvatar } from '@components/Avatar/avatar'
 import { AvatarCropper } from '@components/Avatar/avatarCropper'
-import { PasswordInput } from '@components/Inputs/passwordInput'
-import { TextInput } from '@components/Inputs/textInput'
-import { Toast } from '@components/toast'
-import { ReactNode } from 'react'
+import { User } from '@interfaces/user'
+import { useState } from 'react'
 
 interface SettingSectionProps {
   title: string
@@ -12,28 +10,43 @@ interface SettingSectionProps {
   defaultValue?: string
   inputPlaceholder: string
   disclaimer: string
+  userAttribute: string
+  user: User
+  onSave: (updatedUser: User) => void
 }
 
 export const SettingSection = (props: SettingSectionProps) => {
-  let Input: ReactNode
-  switch (props.inputType) {
-    case 'text':
-      Input = (
-        <TextInput
-          defaultValue={props.defaultValue ? props.defaultValue : ''}
-          placeholder={props.inputPlaceholder}
-        />
-      )
-      break
+  const [attribute, setAttribute] = useState<string>()
+  const [error, setError] = useState<string>()
 
-    case 'password':
-      Input = (
-        <PasswordInput
-          defaultValue={props.defaultValue ? props.defaultValue : ''}
-          placeholder={props.inputPlaceholder}
-        />
-      )
-      break
+  const returnAttribute = (attr: string | undefined) => {
+    if (props.userAttribute === 'username') {
+      if (!attr) return setError('Username must not be empty.')
+
+      if (attr?.length < 3)
+        return setError('Username must be at least 3 characters.')
+
+      if (attr.length > 32)
+        return setError('Username must be 32 characters at maximum.')
+
+      props.user[props.userAttribute] = attr
+
+      props.onSave(props.user)
+    }
+
+    if (props.userAttribute === 'unique_username') {
+      if (!attr) return setError('Username must not be empty.')
+
+      if (attr?.length < 3)
+        return setError('Username must be at least 3 characters.')
+
+      if (attr.length > 32)
+        return setError('Username must be 32 characters at maximum.')
+
+      props.user[props.userAttribute] = attr
+
+      props.onSave(props.user)
+    }
   }
 
   return (
@@ -46,18 +59,30 @@ export const SettingSection = (props: SettingSectionProps) => {
           <div className="mt-3">
             <p>{props.description}</p>
           </div>
-          <div className="mt-4">{Input}</div>
+          <div className="mt-4">
+            {error && <p className="text-xs text-red-400">{error}</p>}
+            <input
+              className="h-8 w-64 rounded border border-transparent px-2 py-1 text-sm caret-violet-500 transition-colors focus:border-violet-500 focus:outline-none"
+              type="text"
+              defaultValue={props.defaultValue ? props.defaultValue : ''}
+              placeholder={props.inputPlaceholder}
+              onChange={(e) => setAttribute(e.target.value)}
+            />
+          </div>
         </div>
       </div>
 
       <div className="flex h-[44px] w-full items-center justify-between rounded-b border-t border-neutral-700 bg-neutral-800 px-4">
         <span className="text-neutral-400">{props.disclaimer}</span>
         <div>
-          <Toast>
-            <button className="rounded border border-neutral-600 bg-neutral-50 px-2 py-1 text-sm font-medium text-zinc-950 transition-colors hover:bg-neutral-300">
-              Save
-            </button>
-          </Toast>
+          <button
+            className="rounded border border-neutral-600 bg-neutral-50 px-2 py-1 text-sm font-medium text-zinc-950 transition-colors hover:bg-neutral-300"
+            onClick={() => {
+              returnAttribute(attribute)
+            }}
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>

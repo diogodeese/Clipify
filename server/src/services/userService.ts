@@ -1,4 +1,5 @@
-import { prismaClient } from '../../lib/prismaClient.js'
+import { User } from '@prisma/client'
+import { prismaClient } from '../config/prismaClient.js'
 
 const checkUniqueUsername = async (uniqueUsername: string) => {
   const user = await prismaClient.user.findUnique({
@@ -29,7 +30,7 @@ const createUser = async (
   uniqueUsername: string,
   username: string,
   avatar: string,
-  banner: string,
+  banner: string
 ) => {
   return await prismaClient.user.create({
     data: {
@@ -41,6 +42,16 @@ const createUser = async (
   })
 }
 
+const updateUser = async (id: string, updatedUser: User) => {
+  const uniqueUsernameAlreadyExists = await checkUniqueUsername(
+    updatedUser.unique_username
+  )
+
+  if (uniqueUsernameAlreadyExists) return { error: 'Duplicate unique username' }
+
+  await prismaClient.user.update({ data: updatedUser, where: { id } })
+}
+
 const deleteUser = async (id: string) => {
   await prismaClient.user.delete({ where: { id } })
 }
@@ -49,6 +60,7 @@ export const userService = {
   getUserByUsername,
   getUserById,
   createUser,
+  updateUser,
   deleteUser,
   checkUniqueUsername,
 }
