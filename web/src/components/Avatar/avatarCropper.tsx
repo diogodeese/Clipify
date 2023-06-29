@@ -75,7 +75,7 @@ export const AvatarCropper = ({ children }: AvatarCropperProps) => {
               <div className="flex flex-col gap-2">
                 <span className="text-xs text-neutral-400">Preview</span>
                 {cropped ? (
-                  <ProfileAvatar imageUrl={cropped} username="Cropped" />
+                  <ProfileAvatar avatar={cropped} username="Cropped" />
                 ) : (
                   <div className="h-36 w-36 rounded-full bg-neutral-700"></div>
                 )}
