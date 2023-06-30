@@ -1,53 +1,21 @@
 import { LargeAvatar } from '@components/Avatar/avatar'
 import { AvatarCropper } from '@components/Avatar/avatarCropper'
-import { User } from '@interfaces/user'
 import { useState } from 'react'
 
 interface SettingSectionProps {
   title: string
   description: string
-  inputType: 'text' | 'password'
+  inputType: string
   defaultValue?: string
   inputPlaceholder: string
   disclaimer: string
   userAttribute: string
-  user: User
-  onSave: (updatedUser: User) => void
+  onSave: (attribute: string) => void
 }
 
 export const SettingSection = (props: SettingSectionProps) => {
-  const [attribute, setAttribute] = useState<string>()
+  const [attribute, setAttribute] = useState<string>('')
   const [error, setError] = useState<string>()
-
-  const returnAttribute = (attr: string | undefined) => {
-    if (props.userAttribute === 'username') {
-      if (!attr) return setError('Username must not be empty.')
-
-      if (attr?.length < 3)
-        return setError('Username must be at least 3 characters.')
-
-      if (attr.length > 32)
-        return setError('Username must be 32 characters at maximum.')
-
-      props.user[props.userAttribute] = attr
-
-      props.onSave(props.user)
-    }
-
-    if (props.userAttribute === 'unique_username') {
-      if (!attr) return setError('Username must not be empty.')
-
-      if (attr?.length < 3)
-        return setError('Username must be at least 3 characters.')
-
-      if (attr.length > 32)
-        return setError('Username must be 32 characters at maximum.')
-
-      props.user[props.userAttribute] = attr
-
-      props.onSave(props.user)
-    }
-  }
 
   return (
     <div className="flex h-48 w-full flex-col rounded border border-neutral-700">
@@ -66,7 +34,7 @@ export const SettingSection = (props: SettingSectionProps) => {
               type="text"
               defaultValue={props.defaultValue ? props.defaultValue : ''}
               placeholder={props.inputPlaceholder}
-              onChange={(e) => setAttribute(e.target.value)}
+              onChange={(e) => setAttribute(e.target.value.trim())}
             />
           </div>
         </div>
@@ -78,7 +46,7 @@ export const SettingSection = (props: SettingSectionProps) => {
           <button
             className="rounded border border-neutral-600 bg-neutral-50 px-2 py-1 text-sm font-medium text-zinc-950 transition-colors hover:bg-neutral-300"
             onClick={() => {
-              returnAttribute(attribute)
+              props.onSave(attribute)
             }}
           >
             Save

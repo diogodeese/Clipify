@@ -19,10 +19,6 @@ export const Account = () => {
     })
   }, [id])
 
-  const onSave = (updatedUser: User) => {
-    axios.put(`http://localhost:4003/user/${id}`, { updatedUser })
-  }
-
   return (
     <>
       <Navbar />
@@ -35,7 +31,21 @@ export const Account = () => {
               <TabSelector tabName="Login Connections" url="/test" />
             </div>
             <div className="flex flex-col gap-4">
-              <SettingSection
+              {test.map((t, key) => (
+                <SettingSection
+                  key={key}
+                  title={t.title}
+                  description={t.description}
+                  inputType={t.inputType}
+                  defaultValue={t.defaultValue}
+                  inputPlaceholder={t.inputPlaceholder}
+                  disclaimer={t.disclaimer}
+                  userAttribute={t.userAttribute}
+                  onSave={t.onSave}
+                />
+              ))}
+
+              {/* <SettingSection
                 title="Your Username"
                 description="This is your profile username."
                 inputType="text"
@@ -44,7 +54,12 @@ export const Account = () => {
                 disclaimer="Please use 32 characters at maximum."
                 userAttribute={'username'}
                 user={user}
-                onSave={onSave}
+                onSave={(username: string) => {
+                  axios.patch(
+                    `http://localhost:4003/user/username/${id}`,
+                    username
+                  )
+                }}
               />
 
               <SettingSection
@@ -57,7 +72,7 @@ export const Account = () => {
                 userAttribute={'unique_username'}
                 user={user}
                 onSave={onSave}
-              />
+              /> */}
 
               <AvatarSettingSection
                 avatar={user.avatar}

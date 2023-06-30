@@ -36,10 +36,19 @@ export class UserController {
     return response.json(user)
   }
 
-  async updateUser(request: Request, response: Response) {
+  async updateUserUniqueUsername(request: Request, response: Response) {
     const id: string = request.params.id
-    const { updatedUser } = request.body
-    userService.updateUser(id, updatedUser)
+    const uniqueUsername: string = request.body
+    userService.updateUserUniqueUsername(id, uniqueUsername)
+
+    return response.json(id)
+  }
+
+  async updateUserUsername(request: Request, response: Response) {
+    const id: string = request.params.id
+    const username = request.body
+
+    userService.updateUserUsername(id, username)
 
     return response.json(id)
   }
