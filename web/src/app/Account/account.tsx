@@ -1,8 +1,6 @@
 import { Navbar } from '@components/Navbar/navbar'
-import {
-  AvatarSettingSection,
-  SettingSection,
-} from '@components/Settings/settingSection'
+import { AvatarSettingSection } from '@components/Settings/avatarSettingSection'
+import { Setting } from '@components/Settings/setting'
 import { TabSelector } from '@components/Settings/tabSelector'
 import { User } from '@interfaces/user'
 import axios from 'axios'
@@ -19,6 +17,50 @@ export const Account = () => {
     })
   }, [id])
 
+  const settingsData = [
+    {
+      title: 'Your Username',
+      description: 'This is your profile username.',
+      input: {
+        type: 'text',
+        placeholder: 'Username',
+        value: user?.username,
+        validateInput: (username?: string) => {
+          if (!username) return false
+          if (username.length < 3) return false
+          if (username.length > 32) return false
+          return username
+        },
+      },
+      disclaimer: 'Please use 32 characters at maximum.',
+      onSave: (username: string) => {
+        axios.patch(`http://localhost:4003/user/username/${id}`, { username })
+      },
+    },
+    {
+      title: 'Your Unique Username',
+      description: 'This is your unique username.',
+      input: {
+        type: 'text',
+        placeholder: '@Username',
+        value: user?.uniqueUsername,
+        validateInput: (uniqueUsername?: string) => {
+          if (!uniqueUsername) return false
+          if (uniqueUsername.length < 3) return false
+          if (uniqueUsername.length > 32) return false
+          if (uniqueUsername.includes(' ')) return false
+          return uniqueUsername
+        },
+      },
+      disclaimer: 'Please use 32 characters at maximum.',
+      onSave: (uniqueUsername: string) => {
+        axios.patch(`http://localhost:4003/user/uniqueUsername/${id}`, {
+          uniqueUsername,
+        })
+      },
+    },
+  ]
+
   return (
     <>
       <Navbar />
@@ -31,48 +73,33 @@ export const Account = () => {
               <TabSelector tabName="Login Connections" url="/test" />
             </div>
             <div className="flex flex-col gap-4">
-              {test.map((t, key) => (
-                <SettingSection
-                  key={key}
-                  title={t.title}
-                  description={t.description}
-                  inputType={t.inputType}
-                  defaultValue={t.defaultValue}
-                  inputPlaceholder={t.inputPlaceholder}
-                  disclaimer={t.disclaimer}
-                  userAttribute={t.userAttribute}
-                  onSave={t.onSave}
-                />
+              {settingsData.map((setting, key) => (
+                <Setting.Root key={key}>
+                  <Setting.Content
+                    title={setting.title}
+                    description={setting.description}
+                  >
+                    <Setting.Input
+                      type={setting.input.type}
+                      placeholder={setting.input.placeholder}
+                      defaultValue={setting.input.value}
+                      onChange={(e) => {
+                        setting.input.value = e.target.value.trim()
+                      }}
+                    />
+                  </Setting.Content>
+                  <Setting.Footer disclaimer={setting.disclaimer}>
+                    <Setting.Button
+                      onClick={() => {
+                        const attribute = setting.input.validateInput(
+                          setting.input.value
+                        )
+                        if (attribute) setting.onSave(attribute)
+                      }}
+                    />
+                  </Setting.Footer>
+                </Setting.Root>
               ))}
-
-              {/* <SettingSection
-                title="Your Username"
-                description="This is your profile username."
-                inputType="text"
-                defaultValue={user.username}
-                inputPlaceholder="Username"
-                disclaimer="Please use 32 characters at maximum."
-                userAttribute={'username'}
-                user={user}
-                onSave={(username: string) => {
-                  axios.patch(
-                    `http://localhost:4003/user/username/${id}`,
-                    username
-                  )
-                }}
-              />
-
-              <SettingSection
-                title="Your Unique Username"
-                description="This is your unique username."
-                inputType="text"
-                defaultValue={user.unique_username}
-                inputPlaceholder="@Username"
-                disclaimer="Please use 32 characters at maximum."
-                userAttribute={'unique_username'}
-                user={user}
-                onSave={onSave}
-              /> */}
 
               <AvatarSettingSection
                 avatar={user.avatar}
