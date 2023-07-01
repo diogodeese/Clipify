@@ -8,35 +8,35 @@ datasource db {
 }
 
 model User {
-  id              String   @id @default(uuid())
-  unique_username String   @unique
-  username        String
-  avatar          String
-  banner          String
-  created_at      DateTime @default(now())
-  Posts           Post[]
-  Likes           Like[]
+  id             String   @id @default(uuid())
+  uniqueUsername String   @unique @map("unique_username")
+  username       String
+  avatar         String
+  banner         String
+  createdAt      DateTime @default(now()) @map("created_at")
+  Posts          Post[]
+  Likes          Like[]
 
   @@map("users")
 }
 
 model Post {
-  id         String   @id @default(uuid())
-  user_id    String
-  user       User     @relation(fields: [user_id], references: [id])
-  title      String
-  content    String
-  created_at DateTime @default(now())
-  Likes      Like[]
-  Videos     Video[]
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id])
+  title     String
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+  Likes     Like[]
+  Videos    Video[]
 
   @@map("posts")
 }
 
 model Video {
   id       String   @id @default(uuid())
-  post_id  String
-  post     Post     @relation(fields: [post_id], references: [id])
+  postId   String   @map("post_id")
+  post     Post     @relation(fields: [postId], references: [id])
   url      String
   duration DateTime
 
@@ -45,10 +45,10 @@ model Video {
 
 model Like {
   id         String   @id @default(uuid())
-  user_id    String
-  user       User     @relation(fields: [user_id], references: [id])
-  post_id    String
-  post       Post     @relation(fields: [post_id], references: [id])
+  userId     String   @map("user_id")
+  user       User     @relation(fields: [userId], references: [id])
+  postId     String   @map("post_id")
+  post       Post     @relation(fields: [postId], references: [id])
   created_at DateTime @default(now())
 
   @@map("likes")

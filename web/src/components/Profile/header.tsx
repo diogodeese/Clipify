@@ -22,7 +22,7 @@ export const Header = ({ user }: HeaderProps) => {
             <span className="text-lg">{user.username}</span>
             <span className="text-sm">
               <span className="text-xs tracking-widest">@</span>
-              {user.unique_username}
+              {user.uniqueUsername}
             </span>
           </div>
         </div>

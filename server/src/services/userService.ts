@@ -2,18 +2,15 @@ import { prismaClient } from '../config/prismaClient.js'
 
 const checkUniqueUsername = async (uniqueUsername: string) => {
   const user = await prismaClient.user.findUnique({
-    where: { unique_username: uniqueUsername },
+    where: { uniqueUsername },
   })
 
-  if (user) return true
-  else return false
+  return !!user
 }
 
 const getUserByUsername = async (uniqueUsername: string) => {
   return await prismaClient.user.findUnique({
-    where: {
-      unique_username: uniqueUsername,
-    },
+    where: { uniqueUsername },
   })
 }
 
@@ -33,7 +30,7 @@ const createUser = async (
 ) => {
   return await prismaClient.user.create({
     data: {
-      unique_username: uniqueUsername,
+      uniqueUsername: uniqueUsername,
       username,
       avatar,
       banner,
@@ -47,14 +44,14 @@ const updateUserUniqueUsername = async (id: string, uniqueUsername: string) => {
   }
 
   await prismaClient.user.update({
-    data: { unique_username: uniqueUsername },
+    data: { uniqueUsername },
     where: { id },
   })
 }
 
 const updateUserUsername = async (id: string, username: string) => {
   await prismaClient.user.update({
-    data: username,
+    data: { username },
     where: { id },
   })
 }

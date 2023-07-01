@@ -1,6 +1,6 @@
 export interface User {
   id: string
-  unique_username: string
+  uniqueUsername: string
   username: string
   avatar: string
   banner: string
