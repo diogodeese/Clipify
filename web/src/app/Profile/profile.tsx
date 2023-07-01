@@ -1,4 +1,4 @@
-import { Navbar } from '@components/Navbar/navbar'
+import { NavigationBar } from '@components/Navbar/navigationBar'
 import { Header } from '@components/Profile/header'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
@@ -18,7 +18,7 @@ export const Profile = () => {
 
   return (
     <>
-      <Navbar />
+      <NavigationBar />
       <div className="flex w-screen flex-col items-center justify-center gap-6 py-8">
         {user && <Header user={user} />}
       </div>

@@ -2,8 +2,7 @@ import { NavigationMenuType } from './navigationMenu.types'
 
 const linksData: NavigationMenuType[] = [
   { url: '/games', displayName: 'Games' },
-  { url: '/login', displayName: 'Log In' },
-  { url: '/signup', displayName: 'Sign Up' },
+  { url: '/signIn', displayName: 'Sign In' },
 ]
 
 export default linksData

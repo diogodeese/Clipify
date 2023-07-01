@@ -1,10 +1,10 @@
-import { Navbar } from '@components/Navbar/navbar'
+import { NavigationBar } from '@components/Navbar/navigationBar'
 import { Post } from '@components/post'
 
 export const Landing = () => {
   return (
     <>
-      <Navbar />
+      <NavigationBar />
       <div className="flex w-screen justify-center py-8">
         <div className="flex w-[800px] flex-col items-center justify-center gap-6 ">
           <Post />

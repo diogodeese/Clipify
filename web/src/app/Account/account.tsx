@@ -1,4 +1,4 @@
-import { Navbar } from '@components/Navbar/navbar'
+import { NavigationBar } from '@components/Navbar/navigationBar'
 import { AvatarSettingSection } from '@components/Settings/avatarSettingSection'
 import { Setting } from '@components/Settings/setting'
 import { TabSelector } from '@components/Settings/tabSelector'
@@ -63,7 +63,7 @@ export const Account = () => {
 
   return (
     <>
-      <Navbar />
+      <NavigationBar />
       <div className="flex w-screen justify-center gap-6 py-8">
         {user && (
           <>
