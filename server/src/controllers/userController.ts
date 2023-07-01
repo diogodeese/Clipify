@@ -38,7 +38,8 @@ export class UserController {
 
   async updateUserUniqueUsername(request: Request, response: Response) {
     const id: string = request.params.id
-    const uniqueUsername: string = request.body
+    const { uniqueUsername } = request.body
+
     userService.updateUserUniqueUsername(id, uniqueUsername)
 
     return response.json(id)
@@ -46,7 +47,7 @@ export class UserController {
 
   async updateUserUsername(request: Request, response: Response) {
     const id: string = request.params.id
-    const username = request.body
+    const { username } = request.body
 
     userService.updateUserUsername(id, username)
 
