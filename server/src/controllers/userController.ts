@@ -7,6 +7,8 @@ export class UserController {
     const id: string = request.params.id
     let user: User
 
+    console.log(id)
+
     if (id.includes('@')) {
       user = await userService.getUserByUsername(id.replace('@', ''))
     } else {

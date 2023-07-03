@@ -1,6 +1,7 @@
 import { Account } from '@app/Account/account'
 import { Landing } from '@app/Landing/landing'
 import { Profile } from '@app/Profile/profile'
+import { SignIn } from '@app/SignIn/signIn'
 import { routerType } from './router.types'
 
 const pagesData: routerType[] = [
@@ -20,14 +21,9 @@ const pagesData: routerType[] = [
     element: <Account />,
   },
   {
-    title: 'login',
-    path: 'login',
-    element: <div>Login</div>,
-  },
-  {
-    title: 'register',
-    path: 'register',
-    element: <div>Register</div>,
+    title: 'signIn',
+    path: 'signIn',
+    element: <SignIn />,
   },
   {
     title: 'not-found',
