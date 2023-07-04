@@ -6,11 +6,8 @@ const userController = new UserController()
 
 router.get('/user/:id', userController.getUser)
 router.post('/user', userController.createUser)
-router.patch(
-  '/user/uniqueUsername/:id',
-  userController.updateUserUniqueUsername
-)
-router.patch('/user/username/:id', userController.updateUserUsername)
+router.patch('/user/uniqueUsername', userController.updateUserUniqueUsername)
+router.patch('/user/username', userController.updateUserUsername)
 router.delete('/user/:id', userController.deleteUser)
 
 export { router }

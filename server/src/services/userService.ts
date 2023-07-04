@@ -1,3 +1,4 @@
+import { auth } from 'firebase-admin'
 import { prismaClient } from '../config/prismaClient.js'
 
 const checkUniqueUsername = async (uniqueUsername: string) => {
@@ -38,21 +39,27 @@ const createUser = async (
   })
 }
 
-const updateUserUniqueUsername = async (id: string, uniqueUsername: string) => {
+const updateUserUniqueUsername = async (
+  user: auth.DecodedIdToken,
+  uniqueUsername: string
+) => {
   if (await checkUniqueUsername(uniqueUsername)) {
     return { error: 'This unique username is already being used' }
   }
 
   await prismaClient.user.update({
     data: { uniqueUsername },
-    where: { id },
+    where: { email: user.email },
   })
 }
 
-const updateUserUsername = async (id: string, username: string) => {
+const updateUserUsername = async (
+  user: auth.DecodedIdToken,
+  username: string
+) => {
   await prismaClient.user.update({
     data: { username },
-    where: { id },
+    where: { email: user.email },
   })
 }
 

@@ -34,7 +34,15 @@ export const Account = () => {
       },
       disclaimer: 'Please use 32 characters at maximum.',
       onSave: (username: string) => {
-        axios.patch(`http://localhost:4003/user/username/${id}`, { username })
+        axios.patch(
+          `http://localhost:4003/user/username`,
+          { username },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        )
       },
     },
     {
@@ -55,7 +63,7 @@ export const Account = () => {
       disclaimer: 'Please use 32 characters at maximum.',
       onSave: (uniqueUsername: string) => {
         axios.patch(
-          `http://localhost:4003/user/uniqueUsername/${id}`,
+          `http://localhost:4003/user/uniqueUsername`,
           {
             uniqueUsername,
           },

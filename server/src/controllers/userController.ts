@@ -38,21 +38,21 @@ export class UserController {
   }
 
   async updateUserUniqueUsername(request: CustomRequest, response: Response) {
-    const id: string = request.params.id
     const { uniqueUsername } = request.body
+    const firebaseUser = request.user
 
-    userService.updateUserUniqueUsername(id, uniqueUsername)
+    userService.updateUserUniqueUsername(firebaseUser, uniqueUsername)
 
-    return response.json(id)
+    return response.status(200)
   }
 
   async updateUserUsername(request: CustomRequest, response: Response) {
-    const id: string = request.params.id
     const { username } = request.body
+    const firebaseUser = request.user
 
-    userService.updateUserUsername(id, username)
+    userService.updateUserUsername(firebaseUser, username)
 
-    return response.json(id)
+    return response.status(200)
   }
 
   async deleteUser(request: CustomRequest, response: Response) {
