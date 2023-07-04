@@ -10,8 +10,8 @@ export const SignIn = () => {
   const handleGoogleSignIn = () => {
     const provider = new GoogleAuthProvider()
     signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log(result)
+      .then(async (result) => {
+        localStorage.setItem('token', await result.user.getIdToken())
         navigate('/')
       })
       .catch((error) => {
@@ -23,7 +23,6 @@ export const SignIn = () => {
     <>
       <NavigationBar />
       <div className="flex w-screen flex-col items-center justify-center gap-6 py-8">
-        Sign In with Google & Discord
         <button
           className="flex items-center gap-3 rounded border px-4 py-2"
           onClick={handleGoogleSignIn}

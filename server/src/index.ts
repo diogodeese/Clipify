@@ -1,5 +1,6 @@
 import cors from 'cors'
 import express from 'express'
+import { decodeToken } from './middleware/index.js'
 import { router } from './routes.js'
 
 const app = express()
@@ -9,6 +10,7 @@ app.use(
     origin: '*',
   })
 )
+app.use(decodeToken)
 app.use(express.json())
 app.use(router)
 

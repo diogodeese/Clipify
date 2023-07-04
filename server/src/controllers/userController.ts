@@ -1,13 +1,12 @@
 import { User } from '@prisma/client'
-import { Request, Response } from 'express'
+import { Response } from 'express'
+import { CustomRequest } from '../interfaces/customRequest.js'
 import { userService } from '../services/userService.js'
 
 export class UserController {
-  async getUser(request: Request, response: Response) {
+  async getUser(request: CustomRequest, response: Response) {
     const id: string = request.params.id
     let user: User
-
-    console.log(id)
 
     if (id.includes('@')) {
       user = await userService.getUserByUsername(id.replace('@', ''))
@@ -18,7 +17,7 @@ export class UserController {
     response.json(user)
   }
 
-  async createUser(request: Request, response: Response) {
+  async createUser(request: CustomRequest, response: Response) {
     const { uniqueUsername, username, avatar, banner } = request.body
 
     const uniqueUsernameAlreadyExists = await userService.checkUniqueUsername(
@@ -38,7 +37,7 @@ export class UserController {
     return response.json(user)
   }
 
-  async updateUserUniqueUsername(request: Request, response: Response) {
+  async updateUserUniqueUsername(request: CustomRequest, response: Response) {
     const id: string = request.params.id
     const { uniqueUsername } = request.body
 
@@ -47,7 +46,7 @@ export class UserController {
     return response.json(id)
   }
 
-  async updateUserUsername(request: Request, response: Response) {
+  async updateUserUsername(request: CustomRequest, response: Response) {
     const id: string = request.params.id
     const { username } = request.body
 
@@ -56,7 +55,7 @@ export class UserController {
     return response.json(id)
   }
 
-  async deleteUser(request: Request, response: Response) {
+  async deleteUser(request: CustomRequest, response: Response) {
     const id: string = request.params.id
     userService.deleteUser(id)
 

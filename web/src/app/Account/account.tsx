@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 export const Account = () => {
   const [user, setUser] = useState<User>()
 
-  const id = '26ebd433-b358-4512-bfff-f2bec60e802a'
+  const id = '32a03719-1022-45de-b83f-aba2aefbedfe'
 
   useEffect(() => {
     axios.get(`http://localhost:4003/user/${id}`).then((response) => {
@@ -54,9 +54,17 @@ export const Account = () => {
       },
       disclaimer: 'Please use 32 characters at maximum.',
       onSave: (uniqueUsername: string) => {
-        axios.patch(`http://localhost:4003/user/uniqueUsername/${id}`, {
-          uniqueUsername,
-        })
+        axios.patch(
+          `http://localhost:4003/user/uniqueUsername/${id}`,
+          {
+            uniqueUsername,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        )
       },
     },
   ]
