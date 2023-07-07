@@ -5,10 +5,12 @@ import { TabSelector } from '@components/Settings/tabSelector'
 import { User } from '@interfaces/user'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const Account = () => {
   const [user, setUser] = useState<User>()
 
+  const navigate = useNavigate()
   const id = '32a03719-1022-45de-b83f-aba2aefbedfe'
 
   useEffect(() => {
@@ -34,15 +36,22 @@ export const Account = () => {
       },
       disclaimer: 'Please use 32 characters at maximum.',
       onSave: (username: string) => {
-        axios.patch(
-          `http://localhost:4003/user/username`,
-          { username },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          }
-        )
+        axios
+          .patch(
+            `http://localhost:4003/user/username`,
+            { username },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            }
+          )
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((error) => {
+            if (error.response.status === 401) navigate('/signIn')
+          })
       },
     },
     {
