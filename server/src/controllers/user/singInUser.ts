@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt'
 import { Request, Response } from 'express'
 import userService from '../../services/user/index.js'
 
@@ -10,7 +9,7 @@ export const signInUser = async (request: Request, response: Response) => {
   if (!user)
     return response.status(400).json({ message: 'Invalid email or password' })
 
-  const verifyPassword = await bcrypt.compare(password, user.password)
+  const verifyPassword = password === user.password
 
   if (!verifyPassword)
     return response.status(400).json({ message: 'Invalid email or password' })
