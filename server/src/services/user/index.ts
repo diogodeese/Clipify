@@ -1,11 +1,11 @@
-import { checkUniqueUsername } from './checkUniqueUsername.js'
-import { createUser } from './createUser.js'
-import { deleteUser } from './deleteUser.js'
-import { getUserById } from './getUserById.js'
-import { getUserByUsername } from './getUserByUsername.js'
-import { signInUser } from './signInUser.js'
-import { updateUserUniqueUsername } from './updateUserUniqueUsername.js'
-import { updateUserUsername } from './updateUserUsername.js'
+import { checkUniqueUsername } from './checkUniqueUsername.ts'
+import { createUser } from './createUser.ts'
+import { deleteUser } from './deleteUser.ts'
+import { getUserById } from './getUserById.ts'
+import { getUserByUsername } from './getUserByUsername.ts'
+import { signInUser } from './signInUser.ts'
+import { updateUserUniqueUsername } from './updateUserUniqueUsername.ts'
+import { updateUserUsername } from './updateUserUsername.ts'
 
 const userService = {
   getUserByUsername,

@@ -1,5 +1,5 @@
-import { prismaClient } from '../../config/prismaClient.js'
-import { checkUniqueUsername } from './checkUniqueUsername.js'
+import { prismaClient } from '../../config/prismaClient.ts'
+import { checkUniqueUsername } from './checkUniqueUsername.ts'
 
 export const updateUserUniqueUsername = async (uniqueUsername: string) => {
   if (await checkUniqueUsername(uniqueUsername)) {

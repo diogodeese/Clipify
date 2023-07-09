@@ -1,4 +1,4 @@
-import { prismaClient } from '../../config/prismaClient.js'
+import { prismaClient } from '../../config/prismaClient.ts'
 
 export const createUser = async (
   uniqueUsername: string,
