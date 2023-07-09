@@ -1,7 +1,9 @@
 import { prismaClient } from '../../config/prismaClient.js'
 
-export const getUserByUsername = async (uniqueUsername: string) => {
+export const getUserByEmail = async (email: string) => {
   return await prismaClient.user.findUnique({
-    where: { uniqueUsername },
+    where: {
+      email,
+    },
   })
 }

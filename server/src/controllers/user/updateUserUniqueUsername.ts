@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import userService from '../../services/user/index.ts'
+import userService from '../../services/user/index.js'
 
 export const updateUserUniqueUsername = async (
   request: Request,

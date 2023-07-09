@@ -1,6 +1,8 @@
-import { prismaClient } from '../../config/prismaClient.ts'
+import { prismaClient } from '../../config/prismaClient.js'
 
 export const createUser = async (
+  email: string,
+  password: string,
   uniqueUsername: string,
   username: string,
   avatar: string,
@@ -8,7 +10,9 @@ export const createUser = async (
 ) => {
   return await prismaClient.user.create({
     data: {
-      uniqueUsername: uniqueUsername,
+      email,
+      password,
+      uniqueUsername,
       username,
       avatar,
       banner,

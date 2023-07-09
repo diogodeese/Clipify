@@ -1,6 +1,6 @@
 import { User } from '@prisma/client'
 import { Request, Response } from 'express'
-import userService from '../../services/user/index.ts'
+import userService from '../../services/user/index.js'
 
 export const getUser = async (request: Request, response: Response) => {
   const id: string = request.params.id
