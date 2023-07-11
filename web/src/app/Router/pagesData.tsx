@@ -2,6 +2,7 @@ import { Account } from '@app/Account/account'
 import { Landing } from '@app/Landing/landing'
 import { Profile } from '@app/Profile/profile'
 import { SignIn } from '@app/SignIn/signIn'
+import { SignUp } from '@app/SignUp.tsx/SignUp'
 import { routerType } from './router.types'
 
 const pagesData: routerType[] = [
@@ -24,6 +25,11 @@ const pagesData: routerType[] = [
     title: 'signIn',
     path: 'signIn',
     element: <SignIn />,
+  },
+  {
+    title: 'signUp',
+    path: 'signUp',
+    element: <SignUp />,
   },
   {
     title: 'not-found',
