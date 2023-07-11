@@ -12,5 +12,7 @@ export const getUser = async (request: Request, response: Response) => {
     user = await userService.getUserById(id)
   }
 
+  if (!user) return response.status(404)
+
   return response.json(user)
 }
