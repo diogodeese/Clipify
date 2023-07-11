@@ -2,7 +2,8 @@ import { Request, Response } from 'express'
 import userService from '../../services/user/index.js'
 
 export const createUser = async (request: Request, response: Response) => {
-  const { email, uniqueUsername, username, password, avatar, banner } =
+  console.log(request.body)
+  const { email, password, uniqueUsername, username, avatar, banner } =
     request.body
 
   const uniqueUsernameAlreadyExists = await userService.checkUniqueUsername(
@@ -14,9 +15,9 @@ export const createUser = async (request: Request, response: Response) => {
 
   const user = await userService.createUser(
     email,
+    password,
     uniqueUsername,
     username,
-    password,
     avatar,
     banner
   )

@@ -7,8 +7,7 @@
     "outDir": "dist",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true
+    "allowSyntheticDefaultImports": true,
   },
   "include": [
     "src/**/*"
