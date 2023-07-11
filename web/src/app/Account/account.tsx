@@ -11,12 +11,15 @@ export const Account = () => {
   const [user, setUser] = useState<User>()
 
   const navigate = useNavigate()
-  const id = '32a03719-1022-45de-b83f-aba2aefbedfe'
+  const id = 'ba7ec096-1a0c-49c6-9ea2-d9b2eba90246'
 
   useEffect(() => {
-    axios.get(`http://localhost:4003/user/${id}`).then((response) => {
-      setUser(response.data)
-    })
+    axios
+      .get(`http://localhost:4003/user/${id}`)
+      .then((response) => {
+        setUser(response.data)
+      })
+      .catch((error) => console.error(error))
   }, [id])
 
   const settingsData = [
