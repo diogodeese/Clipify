@@ -1,8 +1,9 @@
 import { User } from '@prisma/client'
-import { Request, Response } from 'express'
+import { Response } from 'express'
+import { CustomRequest } from '../../interfaces/customRequest.js'
 import userService from '../../services/user/index.js'
 
-export const getUser = async (request: Request, response: Response) => {
+export const getUser = async (request: CustomRequest, response: Response) => {
   const id: string = request.params.id
   let user: User
 
@@ -10,6 +11,12 @@ export const getUser = async (request: Request, response: Response) => {
     user = await userService.getUserByUsername(id.replace('@', ''))
   } else {
     user = await userService.getUserById(id)
+  }
+
+  if (user.id === request.user.id) {
+    console.log('same')
+  } else {
+    console.log('diff')
   }
 
   if (!user) return response.status(404)
