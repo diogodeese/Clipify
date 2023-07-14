@@ -13,12 +13,6 @@ export const getUser = async (request: CustomRequest, response: Response) => {
     user = await userService.getUserById(id)
   }
 
-  if (user.id === request.user.id) {
-    console.log('same')
-  } else {
-    console.log('diff')
-  }
-
   if (!user) return response.status(404)
 
   return response.json(user)
