@@ -8,16 +8,23 @@ const signInUserFormSchema = z.object({
   email: z
     .string()
     .nonempty('Email is required')
-    .email('Email format is invalid'),
+    .email('Email format is invalid')
+    .toLowerCase(),
   password: z
     .string()
     .min(6, 'Your password must be at least 6 characters long'),
 })
 
+type SignInUserFormData = z.infer<typeof signInUserFormSchema>
+
 export const SignIn = () => {
   const [output, setOutput] = useState('')
 
-  const { register, handleSubmit, formState } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInUserFormData>({
     resolver: zodResolver(signInUserFormSchema),
   })
 
@@ -40,6 +47,7 @@ export const SignIn = () => {
               type="email"
               {...register('email')}
             />
+            {errors.email && <span>{errors.email.message}</span>}
           </div>
 
           <div className="flex flex-col gap-1">
