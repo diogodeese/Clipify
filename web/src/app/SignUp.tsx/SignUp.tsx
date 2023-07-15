@@ -1,5 +1,4 @@
 import { NavigationBar } from '@components/Navbar/navigationBar'
-import { ErrorMessage } from '@components/errorMessage'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -7,6 +6,7 @@ import { z } from 'zod'
 
 const signUpUserFormSchema = z.object({
   username: z.string().nonempty('Username is required'),
+  uniqueUsername: z.string().nonempty('Unique username is required'),
   email: z
     .string()
     .nonempty('Email is required')
@@ -46,11 +46,23 @@ export const SignUp = () => {
             <label htmlFor="username">Username</label>
             <input
               className="h-10 rounded border border-neutral-600 bg-neutral-700 px-3 shadow-sm focus:outline-none"
-              type="username"
+              type="text"
               {...register('username')}
             />
             {errors.username && (
               <ErrorMessage message={errors.username.message} />
+            )}
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <label htmlFor="uniqueUsername">Unique Username</label>
+            <input
+              className="h-10 rounded border border-neutral-600 bg-neutral-700 px-3 shadow-sm focus:outline-none"
+              type="text"
+              {...register('uniqueUsername')}
+            />
+            {errors.uniqueUsername && (
+              <ErrorMessage message={errors.uniqueUsername.message} />
             )}
           </div>
 
