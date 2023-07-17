@@ -1,8 +1,8 @@
-export const exclude = <User, Key extends keyof User>(
-  user: User,
+export const exclude = <T, Key extends keyof T>(
+  entity: T,
   keys: Key[]
-): Omit<User, Key> => {
+): Omit<T, Key> => {
   return Object.fromEntries(
-    Object.entries(user).filter(([key]) => !keys.includes(key as Key))
-  ) as Omit<User, Key>
+    Object.entries(entity).filter(([key]) => !keys.includes(key as Key))
+  ) as Omit<T, Key>
 }
