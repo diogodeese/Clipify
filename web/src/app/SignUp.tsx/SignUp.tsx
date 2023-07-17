@@ -1,7 +1,8 @@
+import { Form } from '@components/Form/index'
 import { NavigationBar } from '@components/Navbar/navigationBar'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const signUpUserFormSchema = z.object({
@@ -14,6 +15,7 @@ const signUpUserFormSchema = z.object({
     .toLowerCase(),
   password: z
     .string()
+    .nonempty('Password is required')
     .min(6, 'Your password must be at least 6 characters long'),
 })
 
@@ -22,13 +24,14 @@ type SignUpUserFormData = z.infer<typeof signUpUserFormSchema>
 export const SignUp = () => {
   const [output, setOutput] = useState('')
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignUpUserFormData>({
+  const signUpUserForm = useForm<SignUpUserFormData>({
     resolver: zodResolver(signUpUserFormSchema),
   })
+
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = signUpUserForm
 
   const signUpUser = (data: any) => {
     setOutput(JSON.stringify(data, null, 2))
@@ -38,63 +41,44 @@ export const SignUp = () => {
     <>
       <NavigationBar />
       <div className="flex w-screen flex-col items-center justify-center gap-10 py-32">
-        <form
-          onSubmit={handleSubmit(signUpUser)}
-          className="flex w-full max-w-sm flex-col gap-4"
-        >
-          <div className="flex flex-col gap-1">
-            <label htmlFor="username">Username</label>
-            <input
-              className="h-10 rounded border border-neutral-600 bg-neutral-700 px-3 shadow-sm focus:outline-none"
-              type="text"
-              {...register('username')}
-            />
-            {errors.username && (
-              <ErrorMessage message={errors.username.message} />
-            )}
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label htmlFor="uniqueUsername">Unique Username</label>
-            <input
-              className="h-10 rounded border border-neutral-600 bg-neutral-700 px-3 shadow-sm focus:outline-none"
-              type="text"
-              {...register('uniqueUsername')}
-            />
-            {errors.uniqueUsername && (
-              <ErrorMessage message={errors.uniqueUsername.message} />
-            )}
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label htmlFor="email">Email</label>
-            <input
-              className="h-10 rounded border border-neutral-600 bg-neutral-700 px-3 shadow-sm focus:outline-none"
-              type="email"
-              {...register('email')}
-            />
-            {errors.email && <ErrorMessage message={errors.email.message} />}
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label htmlFor="password">Password</label>
-            <input
-              className="h-10 rounded border border-neutral-600 bg-neutral-700 px-3 shadow-sm focus:outline-none"
-              type="password"
-              {...register('password')}
-            />
-            {errors.password && (
-              <ErrorMessage message={errors.password.message} />
-            )}
-          </div>
-
-          <button
-            type="submit"
-            className="h-10 gap-3 rounded bg-emerald-500 font-semibold text-white transition-colors hover:bg-emerald-600"
+        <FormProvider {...signUpUserForm}>
+          <form
+            onSubmit={handleSubmit(signUpUser)}
+            className="flex w-full max-w-sm flex-col gap-4"
           >
-            Sign up
-          </button>
-        </form>
+            <Form.Field>
+              <Form.Label htmlFor="username">Username</Form.Label>
+              <Form.Input type="text" name="username" />
+              <Form.ErrorMessage field="username" />
+            </Form.Field>
+
+            <Form.Field>
+              <Form.Label htmlFor="uniqueUsername">Unique Username</Form.Label>
+              <Form.Input type="text" name="uniqueUsername" />
+              <Form.ErrorMessage field="uniqueUsername" />
+            </Form.Field>
+
+            <Form.Field>
+              <Form.Label htmlFor="email">Email</Form.Label>
+              <Form.Input type="email" name="email" />
+              <Form.ErrorMessage field="email" />
+            </Form.Field>
+
+            <Form.Field>
+              <Form.Label htmlFor="password">Password</Form.Label>
+              <Form.Input type="password" name="password" />
+              <Form.ErrorMessage field="password" />
+            </Form.Field>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="h-10 gap-3 rounded bg-emerald-500 font-semibold text-white transition-colors hover:bg-emerald-600"
+            >
+              Sign up
+            </button>
+          </form>
+        </FormProvider>
 
         <pre>{output}</pre>
       </div>
