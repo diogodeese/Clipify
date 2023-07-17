@@ -7,8 +7,10 @@ export const getUser = async (request: CustomRequest, response: Response) => {
   const id: string = request.params.id
   let user: User
 
-  if (id.includes('@')) {
+  if (id.startsWith('@')) {
     user = await userService.getUserByUsername(id.replace('@', ''))
+  } else if (id.includes('@')) {
+    user = await userService.getUserByEmail(id)
   } else {
     user = await userService.getUserById(id)
   }
