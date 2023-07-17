@@ -16,8 +16,8 @@ export const Header = ({ user }: HeaderProps) => {
       <div className="absolute left-12 top-36 z-10">
         <ProfileAvatar avatar={user.avatar} username={user.username} />
       </div>
-      <div className="relative flex h-48 w-[1200px] items-end justify-start gap-8 rounded-b-lg bg-neutral-800 px-12 py-8">
-        <div className="flex h-24 w-56 flex-col gap-4 px-2">
+      <div className="relative flex h-36 w-[1200px] items-end justify-start gap-8 rounded-b-lg bg-neutral-800 px-12 py-8">
+        <div className="flex h-12 w-56 flex-col gap-4 px-3">
           <div className="flex flex-col">
             <span className="text-lg">{user.username}</span>
             <span className="text-sm">
@@ -26,7 +26,7 @@ export const Header = ({ user }: HeaderProps) => {
             </span>
           </div>
         </div>
-        <div className="flex h-24 items-center justify-between gap-4">
+        <div className="flex h-12 items-center justify-between gap-4">
           <div>132 Posts</div>
           <hr className="w-8 rotate-90" />
           <div>99 Followers</div>

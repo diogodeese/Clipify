@@ -1,8 +1,6 @@
 import { InputHTMLAttributes } from 'react'
 
-export const SettingInput = ({
-  ...rest
-}: InputHTMLAttributes<HTMLInputElement>) => {
+export const Input = ({ ...rest }: InputHTMLAttributes<HTMLInputElement>) => {
   return (
     <>
       {/* {error && <p className="text-xs text-red-400">{error}</p>} */}

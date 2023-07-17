@@ -1,16 +1,12 @@
 import { ReactNode } from 'react'
 
-interface SettingContentProps {
+interface ContentProps {
   title: string
   description: string
   children: ReactNode
 }
 
-export const SettingContent = ({
-  title,
-  description,
-  children,
-}: SettingContentProps) => {
+export const Content = ({ title, description, children }: ContentProps) => {
   return (
     <div className="flex flex-grow justify-between px-4">
       <div>

@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from 'react'
 
-export const SettingButton = ({
+export const Button = ({
   ...rest
 }: ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
