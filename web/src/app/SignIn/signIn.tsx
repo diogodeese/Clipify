@@ -14,6 +14,7 @@ const signInUserFormSchema = z.object({
     .toLowerCase(),
   password: z
     .string()
+    .nonempty('Password is required')
     .min(6, 'Every password must be at least 6 characters long'),
 })
 
@@ -28,15 +29,24 @@ export const SignIn = () => {
 
   const {
     handleSubmit,
-    formState: { isSubmitting },
+    setError,
+    formState: { isSubmitting, errors },
   } = signInUserForm
 
   const signInUser = async (data: SignInUserFormData) => {
-    console.log(data)
-
-    axios.post('http://localhost:4003/user/signIn', {
-      data,
-    })
+    axios
+      .post('http://localhost:4003/user/signIn', {
+        email: data.email,
+        password: data.password,
+      })
+      .then((response) => {
+        localStorage.setItem('token', JSON.stringify(response.data.token))
+      })
+      .catch((error) => {
+        setError('root', {
+          message: error.response.data.message,
+        })
+      })
 
     setOutput(JSON.stringify(data, null, 2))
   }
@@ -50,6 +60,7 @@ export const SignIn = () => {
             onSubmit={handleSubmit(signInUser)}
             className="flex w-full max-w-sm flex-col gap-4"
           >
+            {errors.root && <span>{errors.root.message}</span>}
             <Form.Field>
               <Form.Label htmlFor="email">Email</Form.Label>
               <Form.Input type="email" name="email" />
@@ -61,28 +72,6 @@ export const SignIn = () => {
               <Form.Input type="password" name="password" />
               <Form.ErrorMessage field="password" />
             </Form.Field>
-
-            {/* <div className="flex flex-col gap-1">
-            <label htmlFor="email">Email</label>
-            <input
-              className="h-10 rounded border border-neutral-600 bg-neutral-700 px-3 shadow-sm focus:outline-none"
-              type="email"
-              {...register('email')}
-            />
-            {errors.email && <ErrorMessage message={errors.email.message} />}
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label htmlFor="password">Password</label>
-            <input
-              className="h-10 rounded border border-neutral-600 bg-neutral-700 px-3 shadow-sm focus:outline-none"
-              type="password"
-              {...register('password')}
-            />
-            {errors.password && (
-              <ErrorMessage message={errors.password.message} />
-            )}
-          </div> */}
 
             <button
               type="submit"
