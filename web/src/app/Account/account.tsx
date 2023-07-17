@@ -1,6 +1,6 @@
 import { NavigationBar } from '@components/Navbar/navigationBar'
 import { AvatarSettingSection } from '@components/Settings/avatarSettingSection'
-import { Setting } from '@components/Settings/setting'
+import { Setting } from '@components/Settings/index'
 import { TabSelector } from '@components/Settings/tabSelector'
 import { User } from '@interfaces/user'
 import axios from 'axios'
