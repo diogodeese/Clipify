@@ -1,7 +1,7 @@
 import { Form } from '@components/Form/index'
 import { NavigationBar } from '@components/Navbar/navigationBar'
 import { zodResolver } from '@hookform/resolvers/zod'
-import axios from 'axios'
+import { userService } from '@services/user'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -34,20 +34,22 @@ export const SignIn = () => {
   } = signInUserForm
 
   const signInUser = async (data: SignInUserFormData) => {
-    axios
-      .post('http://localhost:4003/user/signIn', {
-        email: data.email,
-        password: data.password,
-      })
-      .then((response) => {
-        localStorage.setItem('token', JSON.stringify(response.data.token))
-      })
-      .catch((error) => {
-        setError('root', {
-          message: error.response.data.message,
-        })
-      })
+    // axios
+    //   .post('http://localhost:4003/user/signIn', {
+    //     email: data.email,
+    //     password: data.password,
+    //   })
+    //   .then((response) => {
+    //     localStorage.setItem('token', response.data.token)
+    //   })
+    //   .catch((error) => {
+    //     setError('root', {
+    //       message: error.response.data.message,
+    //     })
+    //   })
 
+    const a = await userService.signInUser(data.email, data.password)
+    setError('root', { message: a.response.data.message })
     setOutput(JSON.stringify(data, null, 2))
   }
 
@@ -60,7 +62,8 @@ export const SignIn = () => {
             onSubmit={handleSubmit(signInUser)}
             className="flex w-full max-w-sm flex-col gap-4"
           >
-            {errors.root && <span>{errors.root.message}</span>}
+            <Form.ErrorMessage field="root" />
+
             <Form.Field>
               <Form.Label htmlFor="email">Email</Form.Label>
               <Form.Input type="email" name="email" />
@@ -83,11 +86,11 @@ export const SignIn = () => {
           </form>
         </FormProvider>
 
-        {output && (
+        {/* {output && (
           <pre className="rounded-lg bg-zinc-800 p-6 text-sm text-zinc-100">
             {output}
           </pre>
-        )}
+        )} */}
       </div>
     </>
   )
