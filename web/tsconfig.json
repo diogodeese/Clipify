@@ -21,6 +21,9 @@
       "@services/*": [
         "src/services/*"
       ],
+      "@api/*": [
+        "src/api/*"
+      ]
     },
     "useDefineForClassFields": true,
     "lib": [
