@@ -3,6 +3,7 @@ import { AvatarSettingSection } from '@components/Settings/avatarSettingSection'
 import { Setting } from '@components/Settings/index'
 import { TabSelector } from '@components/Settings/tabSelector'
 import { User } from '@interfaces/user'
+import { userService } from '@services/user'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -11,15 +12,15 @@ export const Account = () => {
   const [user, setUser] = useState<User>()
 
   const navigate = useNavigate()
-  const id = 'ba7ec096-1a0c-49c6-9ea2-d9b2eba90246'
+  const id = '32a03719-1022-45de-b83f-aba2aefbedfe'
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:4003/user/${id}`)
-      .then((response) => {
-        setUser(response.data)
-      })
-      .catch((error) => console.error(error))
+    const getUser = async () => {
+      const user = await userService.getUser(id)
+      setUser(user)
+    }
+
+    getUser()
   }, [id])
 
   const settingsData = [
