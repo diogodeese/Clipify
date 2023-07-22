@@ -3,6 +3,9 @@
     "target": "ES2020",
     "baseUrl": "./",
     "paths": {
+      "@api/*": [
+        "src/api/*"
+      ],
       "@app/*": [
         "src/app/*"
       ],
@@ -15,14 +18,14 @@
       "@interfaces/*": [
         "src/interfaces/*"
       ],
-      "@utils/*": [
-        "src/utils/*"
-      ],
       "@services/*": [
         "src/services/*"
       ],
-      "@api/*": [
-        "src/api/*"
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@validations/*": [
+        "src/validations/*"
       ]
     },
     "useDefineForClassFields": true,

@@ -3,26 +3,15 @@ import { NavigationBar } from '@components/Navbar/navigationBar'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { userService } from '@services/user'
 import { setToken } from '@utils/setToken'
+import { signInValidation } from '@validations/signInValidation'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-const signInUserFormSchema = z.object({
-  email: z
-    .string()
-    .nonempty('Email is required')
-    .email('Email format is invalid')
-    .toLowerCase(),
-  password: z
-    .string()
-    .nonempty('Password is required')
-    .min(6, 'Every password must be at least 6 characters long'),
-})
-
-type SignInUserFormData = z.infer<typeof signInUserFormSchema>
+type SignInValidationData = z.infer<typeof signInValidation>
 
 export const SignIn = () => {
-  const signInUserForm = useForm<SignInUserFormData>({
-    resolver: zodResolver(signInUserFormSchema),
+  const signInUserForm = useForm<SignInValidationData>({
+    resolver: zodResolver(signInValidation),
   })
 
   const {
@@ -31,7 +20,7 @@ export const SignIn = () => {
     formState: { isSubmitting },
   } = signInUserForm
 
-  const signInUser = async (data: SignInUserFormData) => {
+  const signInUser = async (data: SignInValidationData) => {
     const response = await userService.signInUser(data.email, data.password)
 
     if (response) {
