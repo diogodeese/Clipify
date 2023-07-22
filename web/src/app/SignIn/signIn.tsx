@@ -7,10 +7,10 @@ import { signInValidation } from '@validations/signInValidation'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-type SignInValidationData = z.infer<typeof signInValidation>
+type SignInValidationType = z.infer<typeof signInValidation>
 
 export const SignIn = () => {
-  const signInUserForm = useForm<SignInValidationData>({
+  const signInUserForm = useForm<SignInValidationType>({
     resolver: zodResolver(signInValidation),
   })
 
@@ -20,7 +20,7 @@ export const SignIn = () => {
     formState: { isSubmitting },
   } = signInUserForm
 
-  const signInUser = async (data: SignInValidationData) => {
+  const signInUser = async (data: SignInValidationType) => {
     const response = await userService.signInUser(data.email, data.password)
 
     if (response) {

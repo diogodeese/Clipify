@@ -6,12 +6,12 @@ import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-type SignUpValidationData = z.infer<typeof signUpValidation>
+type SignUpValidationType = z.infer<typeof signUpValidation>
 
 export const SignUp = () => {
   const [output, setOutput] = useState('')
 
-  const signUpUserForm = useForm<SignUpValidationData>({
+  const signUpUserForm = useForm<SignUpValidationType>({
     resolver: zodResolver(signUpValidation),
   })
 
@@ -20,7 +20,7 @@ export const SignUp = () => {
     formState: { isSubmitting },
   } = signUpUserForm
 
-  const signUpUser = (data: SignUpValidationData) => {
+  const signUpUser = (data: SignUpValidationType) => {
     setOutput(JSON.stringify(data, null, 2))
   }
 
