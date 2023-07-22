@@ -2,7 +2,7 @@ import { Form } from '@components/Form/index'
 import { NavigationBar } from '@components/Navbar/navigationBar'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { userService } from '@services/user'
-import { useState } from 'react'
+import { setToken } from '@utils/setToken'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -21,8 +21,6 @@ const signInUserFormSchema = z.object({
 type SignInUserFormData = z.infer<typeof signInUserFormSchema>
 
 export const SignIn = () => {
-  const [output, setOutput] = useState('')
-
   const signInUserForm = useForm<SignInUserFormData>({
     resolver: zodResolver(signInUserFormSchema),
   })
@@ -30,27 +28,24 @@ export const SignIn = () => {
   const {
     handleSubmit,
     setError,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting },
   } = signInUserForm
 
   const signInUser = async (data: SignInUserFormData) => {
-    // axios
-    //   .post('http://localhost:4003/user/signIn', {
-    //     email: data.email,
-    //     password: data.password,
-    //   })
-    //   .then((response) => {
-    //     localStorage.setItem('token', response.data.token)
-    //   })
-    //   .catch((error) => {
-    //     setError('root', {
-    //       message: error.response.data.message,
-    //     })
-    //   })
+    const response = await userService.signInUser(data.email, data.password)
 
-    const a = await userService.signInUser(data.email, data.password)
-    setError('root', { message: a.response.data.message })
-    setOutput(JSON.stringify(data, null, 2))
+    if (response) {
+      switch (response.status) {
+        case 200:
+          setToken(response.data.token)
+          break
+
+        case 400:
+          console.log(response.data.message)
+          setError('root', { message: response.data.message })
+          break
+      }
+    }
   }
 
   return (
@@ -85,12 +80,6 @@ export const SignIn = () => {
             </button>
           </form>
         </FormProvider>
-
-        {/* {output && (
-          <pre className="rounded-lg bg-zinc-800 p-6 text-sm text-zinc-100">
-            {output}
-          </pre>
-        )} */}
       </div>
     </>
   )
