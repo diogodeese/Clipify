@@ -2,7 +2,6 @@ import { Request, Response } from 'express'
 import userService from '../../services/user/index.js'
 
 export const signUp = async (request: Request, response: Response) => {
-  console.log(request.body)
   const { email, password, uniqueUsername, username } = request.body
 
   const uniqueUsernameAlreadyExists = await userService.checkUniqueUsername(

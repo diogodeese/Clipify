@@ -15,6 +15,7 @@ export const SignUp = () => {
 
   const {
     handleSubmit,
+    setError,
     formState: { isSubmitting },
   } = signUpUserForm
 
@@ -26,7 +27,18 @@ export const SignUp = () => {
       data.uniqueUsername
     )
 
-    console.log(response)
+    if (response) {
+      switch (response.status) {
+        case 200:
+          console.log(response.data)
+          break
+
+        case 400:
+          console.log(response.data.message)
+          setError('root', { message: response.data.message })
+          break
+      }
+    }
   }
 
   return (
