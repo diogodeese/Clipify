@@ -1,6 +1,6 @@
-import api from '@api/api'
+import api from '@api/index'
 
-const signInUser = async (email: string, password: string) => {
+const signIn = async (email: string, password: string) => {
   const response = await api.post('http://localhost:4003/user/signIn', {
     email,
     password,
@@ -9,4 +9,4 @@ const signInUser = async (email: string, password: string) => {
   return response
 }
 
-export default signInUser
+export default signIn

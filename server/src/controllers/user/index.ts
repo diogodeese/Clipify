@@ -1,17 +1,17 @@
-import { createUser } from './createUser.js'
-import { deleteUser } from './deleteUser.js'
-import { getUser } from './getUser.js'
-import { signInUser } from './singInUser.js'
-import { updateUserUniqueUsername } from './updateUserUniqueUsername.js'
-import { updateUserUsername } from './updateUserUsername.js'
+import { del } from './delete.js'
+import { get } from './get.js'
+import { signUp } from './signUp.js'
+import { signIn } from './singIn.js'
+import { updateUniqueUsername } from './updateUniqueUsername.js'
+import { updateUsername } from './updateUsername.js'
 
 const userController = {
-  getUser,
-  signInUser,
-  createUser,
-  updateUserUniqueUsername,
-  updateUserUsername,
-  deleteUser,
+  get,
+  signIn,
+  signUp,
+  updateUniqueUsername,
+  updateUsername,
+  del,
 }
 
 export default userController

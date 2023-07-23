@@ -2,7 +2,7 @@ import { User } from '@prisma/client'
 import { prismaClient } from '../../config/prismaClient.js'
 import { exclude } from '../../utils/exclude.js'
 
-export const getUserById = async (
+export const getById = async (
   id: string,
   excludeFields?: Array<keyof User>
 ) => {

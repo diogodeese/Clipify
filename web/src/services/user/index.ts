@@ -1,7 +1,9 @@
-import getUser from './getUser'
-import signInUser from './signInUser'
+import get from './get'
+import signIn from './signIn'
+import signUp from './signUp'
 
 export const userService = {
-  getUser,
-  signInUser,
+  get,
+  signIn,
+  signUp,
 }

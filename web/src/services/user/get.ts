@@ -1,9 +1,9 @@
-import api from '@api/api'
+import api from '@api/index'
 
-const getUser = async (id: string) => {
+const get = async (id: string) => {
   const response = await api.get(`http://localhost:4003/user/${id}`)
 
   return response.data
 }
 
-export default getUser
+export default get

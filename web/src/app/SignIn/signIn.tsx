@@ -21,7 +21,7 @@ export const SignIn = () => {
   } = signInUserForm
 
   const signInUser = async (data: SignInValidationType) => {
-    const response = await userService.signInUser(data.email, data.password)
+    const response = await userService.signIn(data.email, data.password)
 
     if (response) {
       switch (response.status) {

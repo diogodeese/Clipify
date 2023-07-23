@@ -1,16 +1,14 @@
 import { Form } from '@components/Form/index'
 import { NavigationBar } from '@components/Navbar/navigationBar'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { userService } from '@services/user'
 import { signUpValidation } from '@validations/signUpValidation'
-import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 type SignUpValidationType = z.infer<typeof signUpValidation>
 
 export const SignUp = () => {
-  const [output, setOutput] = useState('')
-
   const signUpUserForm = useForm<SignUpValidationType>({
     resolver: zodResolver(signUpValidation),
   })
@@ -20,8 +18,15 @@ export const SignUp = () => {
     formState: { isSubmitting },
   } = signUpUserForm
 
-  const signUpUser = (data: SignUpValidationType) => {
-    setOutput(JSON.stringify(data, null, 2))
+  const signUpUser = async (data: SignUpValidationType) => {
+    const response = await userService.signUp(
+      data.email,
+      data.password,
+      data.username,
+      data.uniqueUsername
+    )
+
+    console.log(response)
   }
 
   return (
@@ -66,8 +71,6 @@ export const SignUp = () => {
             </button>
           </form>
         </FormProvider>
-
-        <pre>{output}</pre>
       </div>
     </>
   )

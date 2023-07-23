@@ -1,12 +1,10 @@
 import { prismaClient } from '../../config/prismaClient.js'
 
-export const createUser = async (
+export const create = async (
   email: string,
   password: string,
   uniqueUsername: string,
-  username: string,
-  avatar: string,
-  banner: string
+  username: string
 ) => {
   return await prismaClient.user.create({
     data: {
@@ -14,8 +12,8 @@ export const createUser = async (
       password,
       uniqueUsername,
       username,
-      avatar,
-      banner,
+      avatar: null,
+      banner: null,
     },
   })
 }

@@ -1,10 +1,9 @@
 import { Request, Response } from 'express'
 import userService from '../../services/user/index.js'
 
-export const createUser = async (request: Request, response: Response) => {
+export const signUp = async (request: Request, response: Response) => {
   console.log(request.body)
-  const { email, password, uniqueUsername, username, avatar, banner } =
-    request.body
+  const { email, password, uniqueUsername, username } = request.body
 
   const uniqueUsernameAlreadyExists = await userService.checkUniqueUsername(
     uniqueUsername
@@ -13,13 +12,11 @@ export const createUser = async (request: Request, response: Response) => {
   if (uniqueUsernameAlreadyExists)
     return response.json({ error: 'Duplicate Unique Username' })
 
-  const user = await userService.createUser(
+  const user = await userService.create(
     email,
     password,
     uniqueUsername,
-    username,
-    avatar,
-    banner
+    username
   )
 
   return response.json(user)

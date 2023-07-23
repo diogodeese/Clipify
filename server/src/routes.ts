@@ -4,20 +4,15 @@ import { authenticateToken } from './middleware/authenticateToken.js'
 
 const router = Router()
 
-router.get('/user/:id', userController.getUser)
-router.post('/user/signIn', userController.signInUser)
-router.post('/user', userController.createUser)
+router.get('/user/:id', userController.get)
+router.post('/user/signIn', userController.signIn)
+router.post('/user/signUp', userController.signUp)
 router.patch(
   '/user/uniqueUsername',
   authenticateToken,
-  userController.updateUserUniqueUsername
+  userController.updateUniqueUsername
 )
-router.patch(
-  '/user/username',
-  authenticateToken,
-  userController.updateUserUsername
-)
-router.delete('/user/:id', authenticateToken, userController.deleteUser)
+router.patch('/user/username', authenticateToken, userController.updateUsername)
+router.delete('/user/:id', authenticateToken, userController.del)
 
 export { router }
-
