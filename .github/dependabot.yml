@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: "npm" # For the server
+    directory: "server/" # Location of the package manifest for the server
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "npm" # For the web
+    directory: "web/" # Location of the package manifest for the web
+    schedule:
+      interval: "weekly"
