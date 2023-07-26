@@ -12,11 +12,11 @@ export const Account = () => {
   const [user, setUser] = useState<User>()
 
   const navigate = useNavigate()
-  const id = '32a03719-1022-45de-b83f-aba2aefbedfe'
+  const id = 'd6ee4d5d-118f-4997-9de5-ec2cdcdf23f7'
 
   useEffect(() => {
     const getUser = async () => {
-      const user = await userService.getUser(id)
+      const user = await userService.get(id)
       setUser(user)
     }
 
