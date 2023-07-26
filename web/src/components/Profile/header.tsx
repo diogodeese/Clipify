@@ -11,7 +11,7 @@ interface HeaderProps {
 
 export const Header = ({ user }: HeaderProps) => {
   return (
-    <div className="relative h-60 w-[1200px] rounded-lg bg-neutral-700">
+    <div className="relative h-60 w-[1200px] rounded-t-lg bg-neutral-700">
       <Banner banner={user.banner} />
       <div className="absolute left-12 top-36 z-10">
         <ProfileAvatar avatar={user.avatar} username={user.username} />
