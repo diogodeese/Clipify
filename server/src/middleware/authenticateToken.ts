@@ -11,7 +11,6 @@ export const authenticateToken = async (
   const authHeader = request.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
 
-  console.log(token)
   if (!token) {
     return response.status(401).json({ message: 'You are not authenticated' })
   }
