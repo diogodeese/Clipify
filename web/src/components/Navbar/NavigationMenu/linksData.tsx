@@ -5,19 +5,19 @@ const linksData: NavigationMenuType[] = [
     url: '/games',
     name: 'games',
     displayName: 'Games',
-    notLoggedInRequired: false,
+    displayIfSignedIn: true,
   },
   {
     url: '/signIn',
     name: 'signIn',
     displayName: 'Sign In',
-    notLoggedInRequired: true,
+    displayIfSignedIn: false,
   },
   {
     url: '/signUp',
     name: 'signUp',
     displayName: 'Sign Up',
-    notLoggedInRequired: true,
+    displayIfSignedIn: false,
   },
 ]
 

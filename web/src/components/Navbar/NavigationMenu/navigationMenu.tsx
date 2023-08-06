@@ -13,7 +13,7 @@ export const NavigationMenu = () => {
   return (
     <div className="flex h-full items-center gap-3 text-base">
       {linksData
-        .filter((link) => !(user && link.notLoggedInRequired))
+        .filter((link) => !(user && !link.displayIfSignedIn))
         .map((link, key) => (
           <NavigationLink
             key={key}
