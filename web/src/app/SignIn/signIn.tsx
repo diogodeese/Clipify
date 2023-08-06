@@ -5,11 +5,15 @@ import { userService } from '@services/user'
 import { setToken } from '@utils/setToken'
 import { signInValidation } from '@validations/signInValidation'
 import { FormProvider, useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { setCredentials } from 'src/redux/auth/authSlice'
 import { z } from 'zod'
 
 type SignInValidationType = z.infer<typeof signInValidation>
 
 export const SignIn = () => {
+  const dispatch = useDispatch()
+
   const signInUserForm = useForm<SignInValidationType>({
     resolver: zodResolver(signInValidation),
   })
@@ -26,7 +30,14 @@ export const SignIn = () => {
     if (response) {
       switch (response.status) {
         case 200:
+          console.log(response.data)
           setToken(response.data.token)
+          dispatch(
+            setCredentials({
+              user: response.data.user,
+              token: response.data.token,
+            }),
+          )
           break
 
         case 400:

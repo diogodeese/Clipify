@@ -15,5 +15,5 @@ export const signIn = async (request: Request, response: Response) => {
     return response.status(400).json({ message: 'Invalid email or password' })
 
   const token = await userService.signIn(user)
-  return response.json({ token })
+  return response.json({ user, token })
 }

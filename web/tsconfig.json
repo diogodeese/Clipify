@@ -18,6 +18,9 @@
       "@interfaces/*": [
         "src/interfaces/*"
       ],
+      "@redux/*": [
+        "src/redux/*"
+      ],
       "@services/*": [
         "src/services/*"
       ],
